@@ -6,7 +6,8 @@
     "precio": 19000,
     "short_desc": "Traslados: Hoteles en Puerto Iguazú. Hoteles alejados o caminos en mal estado consultar operador punto de encuentro",
     "long_desc": "Ten la oportunidad de recorrer el lado argentino de las Cataratas del Iguazú y, además, disfrutar de una aventura llena de adrenalina.",
-    "duracion": "12hs"
+    "duracion": "12hs",
+    "disponible": "Todos los dias"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "precio": 15000,
     "short_desc": "Traslados: Traslados desde el radio céntrico a partir de las 07:00 hs, retorno a las 20:30 horas.",
     "long_desc": "En este recorrido por el Parque Ischigualasto - Valle de la Luna disfrutarás de paisajes de otro mundo. Ven a recorrer esta maravilla natural que te impresionará por sus formaciones rocosas y colores rojizos.",
-    "duracion": "13hs"
+    "duracion": "13hs",
+    "disponible": "Todos los dias"
   },
   {
     "id": 3,
@@ -24,6 +26,7 @@
     "precio": 6700,
     "short_desc": "Traslados: ida y vuelta desde el hotel o punto de encuentroo caminos en mal estado consultar operador punto de encuentro",
     "long_desc": "En esta opción, pasearás por el histórico pueblo de San Ignacio y descubrirás las minas de Wanda.",
-    "duracion": "12hs"
+    "duracion": "12hs",
+    "disponible": "Todos los dias"
   }
 ]
