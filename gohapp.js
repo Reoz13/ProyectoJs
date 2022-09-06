@@ -32,7 +32,7 @@ const mostrarExcursiones = (array) => {
             <div class="d-flex gap-3 mt-5">
               <div>
                 <h3 class="datos_reserva">Fecha</h3>
-                <input class="redondeado"type="date" name="date_excursion" id="date" />
+                <input class="redondeado"type="date" name="date" id="date" />
               </div>
               <div>
                 <h3 class="datos_reserva">Hora</h3>
@@ -59,17 +59,20 @@ const mostrarExcursiones = (array) => {
             <div class="precio d-flex flex-column">
               <h3 class="m-3 precio">Precio final por 'x' persona</h3>
               <span class="mt-5">$${element.precio} </span>
-              <button class="redondeado boton p-2 m-2
-              ">Comprar</button>
-              <button class="redondeado boton p-2">Agregar</button>
+
+              <div class="d-flex justify-content-center flex-column ">
+              <button class="redondeado boton ">Comprar</button>
+              <button class="redondeado boton mt-2">Agregar</button>
+              
+              </div>
             </div>
           </div>`;
     excursionesPadre.prepend(excursiones_hijo);
+
+    let fecha = document.getElementById("date");
+
+    fecha.addEventListener("change", (e) => {
+      console.log(e.target.value);
+    });
   });
 };
-
-let fecha = document.getElementById("date");
-
-fecha.addEventListener("change", () => {
-  console.log(fecha.value);
-});

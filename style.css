@@ -63,6 +63,7 @@ a {
 
 
 .boton {
+    width: 100%;
     position: relative;
     margin: 0;
     padding: 0.8em 1em;
