@@ -8,9 +8,15 @@ fetch("./excursiones.json")
     const irDestinos = excursiones.find((e) => e.id === id_excursion2);
     console.log(irDestinos);
     console.log(window.location.pathname);
-    if (window.location.pathname === "/index.html")
+    if (
+      window.location.pathname === "/index.html" ||
+      window.location.pathname === "/ProyectoJs/"
+    )
       mostrarDestinos(excursiones);
-    if (window.location.pathname === `/destino${id_excursion2}.html`)
+    if (
+      window.location.pathname === `/destino${id_excursion2}.html` ||
+      window.location.pathname === `/ProyectoJs/destino${id_excursion2}.html`
+    )
       mostrarDetalle(irDestinos);
   });
 
