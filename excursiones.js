@@ -1,4 +1,4 @@
-[
+export const array_excursiones = [
   {
     "id": 1,
     "nombre": "Cataratas Argentinas con Gran Aventura",
@@ -41,4 +41,7 @@
     "region": "Ruinas",
     "url": "./destino3.html"
   }
-]
+];
+
+
+
