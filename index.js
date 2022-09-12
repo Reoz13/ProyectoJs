@@ -1,18 +1,15 @@
+import {array_excursiones} from './excursiones.js';
+
+
+console.log(array_excursiones);
+
 const destinos_index = document.getElementById("destinos_index");
 const destinos_detalle = document.getElementById("destinos_detalle");
-let excursiones;
-fetch("./excursiones.json")
-  .then((response) => response.json())
-  .then((data) => {
-    excursiones = data;
-    const irDestinos = excursiones.find((e) => e.id === id_excursion2);
-    console.log(irDestinos);
-    console.log(window.location.pathname);
-    if (window.location.pathname === "/index.html")
-      mostrarDestinos(excursiones);
-    if (window.location.pathname === `/destino${id_excursion2}.html`)
-      mostrarDetalle(irDestinos);
-  });
+
+let excursiones = array_excursiones;
+
+   
+
 
 let id_excursion;
 
@@ -136,4 +133,13 @@ const mostrarDetalle = (object) => {
   });
 };
 
+
 let id_excursion2 = JSON.parse(localStorage.getItem("id_excursion"));
+
+const irDestinos = excursiones.find((e) => e.id === id_excursion2);
+console.log(irDestinos);
+console.log(window.location.pathname);
+if (window.location.pathname === "/index.html")
+  mostrarDestinos(excursiones);
+if (window.location.pathname === `/destino${id_excursion2}.html`)
+  mostrarDetalle(irDestinos);
