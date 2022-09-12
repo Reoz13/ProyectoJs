@@ -1,15 +1,18 @@
-import {array_excursiones} from './excursiones.js';
-
-
-console.log(array_excursiones);
-
 const destinos_index = document.getElementById("destinos_index");
 const destinos_detalle = document.getElementById("destinos_detalle");
-
-let excursiones = array_excursiones;
-
-   
-
+let excursiones;
+fetch("./excursiones.json")
+  .then((response) => response.json())
+  .then((data) => {
+    excursiones = data;
+    const irDestinos = excursiones.find((e) => e.id === id_excursion2);
+    console.log(irDestinos);
+    console.log(window.location.pathname);
+    if (window.location.pathname === "/index.html")
+      mostrarDestinos(excursiones);
+    if (window.location.pathname === `/destino${id_excursion2}.html`)
+      mostrarDetalle(irDestinos);
+  });
 
 let id_excursion;
 
@@ -36,9 +39,7 @@ const mostrarDestinos = (array) => {
     } ${element.comentarios} comentarios</p>
                 <p>Reserva flexible</p>
                 <p>Conoce los ${element.region}</p>
-
                 <div>Precio por adulto desde ${element.precio}</div>
-
                 <div class="d-flex justify-content-end" id="ir_destino${
                   element.id
                 }">
@@ -46,7 +47,6 @@ const mostrarDestinos = (array) => {
                     >Ver mas</a
                   >
                 </div>
-
                 <div class="card_precio"></div>
               </div>
             </div>
@@ -73,14 +73,12 @@ const mostrarDetalle = (object) => {
                 }. Disponible: ${object.disponible}</p>
               </div>
             </div>
-
             <div class="border-bottom">
               <h3 class="incluye_act mt-5">Incluye</h3>
               <span class="incluye_desc">${object.short_desc}</span
               >
               <!-- aca va esto En este recorrido por el Parque Ischigualasto - Valle de la Luna disfrutarás de paisajes de otro mundo. Ven a recorrer esta maravilla natural que te impresionará por sus formaciones rocosas y colores rojizos. -->
             </div>
-
             <div class="d-flex gap-3 mt-5">
               <div>
                 <h3 class="datos_reserva">Fecha</h3>
@@ -106,12 +104,10 @@ const mostrarDetalle = (object) => {
               </div>
             </div>
           </div>
-
           <div class="col-md-3 d-flex">
             <div class="precio d-flex flex-column">
               <h3 class="m-3 precio">Precio final por 'x' persona</h3>
               <span class="mt-5">$${object.precio} </span>
-
               <div class="d-flex justify-content-center flex-column ">
               <button class="redondeado boton ">Comprar</button>
               <button class="redondeado boton mt-2">Agregar</button>
@@ -133,13 +129,4 @@ const mostrarDetalle = (object) => {
   });
 };
 
-
 let id_excursion2 = JSON.parse(localStorage.getItem("id_excursion"));
-
-const irDestinos = excursiones.find((e) => e.id === id_excursion2);
-console.log(irDestinos);
-console.log(window.location.pathname);
-if (window.location.pathname === "/index.html")
-  mostrarDestinos(excursiones);
-if (window.location.pathname === `/destino${id_excursion2}.html`)
-  mostrarDetalle(irDestinos);
