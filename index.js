@@ -54,11 +54,13 @@ const mostrarDestinos = (array) => {
                   >
                 </div>
                 <div class="card_precio"></div>
+                
               </div>
             </div>
           `;
 
     destinos_index.prepend(excursiones_hijo);
+
     const boton = document.getElementById(`ir_destino${element.id}`);
     boton.addEventListener("click", () => {
       id_excursion = element.id;
@@ -115,9 +117,10 @@ const mostrarDetalle = (object) => {
               <h3 class="m-3 precio">Precio final por 'x' persona</h3>
               <span class="mt-5">$${object.precio} </span>
               <div class="d-flex justify-content-center flex-column ">
-              <button class="redondeado boton ">Comprar</button>
+              <button class="redondeado boton" id="comprarT_${
+                object.id
+              }">Comprar</button>
               <button class="redondeado boton mt-2">Agregar</button>
-              
               </div>
             </div>
           </div>`;
@@ -125,6 +128,11 @@ const mostrarDetalle = (object) => {
   const popoverTriggerList = document.querySelectorAll(
     '[data-bs-toggle="popover"]'
   );
+  const comprarToast = document.getElementById(`comprarT_${object.id}`);
+  console.log(comprarToast);
+  comprarToast.addEventListener("click", () => {
+    toasTy();
+  });
   const popoverList = [...popoverTriggerList].map(
     (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
   );
@@ -136,3 +144,20 @@ const mostrarDetalle = (object) => {
 };
 
 let id_excursion2 = JSON.parse(localStorage.getItem("id_excursion"));
+
+const toasTy = () => {
+  Toastify({
+    text: "Compra exitosa",
+    duration: 2000,
+    destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right, #4300d2, #a780ff)",
+    },
+    onClick: function () {}, // Callback after click
+  }).showToast();
+};
