@@ -1,162 +1,341 @@
 * {
-    margin: 0;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+    --BGGray: #eeeeee;
+    --BGWhite: #ffff;
+    --BGGGray: #000000bd;
+    --PColor: #9063FF;
+    --SColor: #6d33ff;
+    --WColor: #fa503f;
 }
+
 
 ul {
     list-style: none;
 }
 
 a {
-    color: black;
     text-decoration: none;
 }
 
-
-/* Cards */
-
-
-
-.card2 {
-    padding: 17px;
-    min-height: 327px;
-    margin: 20px;
-    border: 1px solid black;
+p {
+    font-weight: 400;
 }
 
-.card_left {
-    height: 100%;
+header {
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    z-index: 999;
+    box-shadow: 0px 5px 18px #888888;
+
 }
 
-.titulo_act {
-    font-size: 18px;
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-weight: 500;
-    color: black;
 }
-
-.datos_reserva {
-    font-size: 12px;
-}
-
-.incluye_act {
-    font-size: 14px;
-
-}
-
-.incluye_desc {
-    font-size: 14px;
-}
-
-.datos_extra {
-    color: #8888;
-    font-size: 14px;
-}
-
-.redondeado {
-    border-radius: 5px;
-}
-
-.precio {
-    font-size: 20px;
-}
-
 
 .boton {
-    width: 100%;
-    position: relative;
-    margin: 0;
-    padding: 0.8em 1em;
-    outline: none;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: none;
-    text-transform: uppercase;
-    background-color: #333;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    font-family: inherit;
-    z-index: 0;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    border-color: var(--PColor) !important;
+    background-color: var(--PColor) !important;
 }
 
 .boton:hover {
-    animation: sh0 0.5s ease-in-out both;
+    border-color: var(--PColor) !important;
+    background-color: var(--SColor) !important;
+
 }
 
-@keyframes sh0 {
-    0% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
-
-    25% {
-        transform: rotate(2deg) translate3d(0, 0, 0);
-    }
-
-    50% {
-        transform: rotate(-2deg) translate3d(0, 0, 0);
-    }
-
-    75% {
-        transform: rotate(1deg) translate3d(0, 0, 0);
-    }
-
-    100% {
-        transform: rotate(0deg) translate3d(0, 0, 0);
-    }
+input {
+    box-shadow: 0 0 3px var(--PColor);
+    margin: 10px
 }
 
-.boton span {
-    animation: storm 0.7s ease-in-out both;
-    animation-delay: 0.06s;
-}
-
-.boton::before,
-.boton::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 100px;
+.imagenlogo {
+    width: 200px;
     height: 100px;
-    border-radius: 50%;
-    background: #fff;
+}
+
+.hero {
+    height: 100vh;
+    background-image: url("./Imagenes/heroimg.webp");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    place-items: center;
+    background-attachment: fixed;
+
+}
+
+.Hero-h1 {
+    color: var(--BGWhite);
+    text-shadow: 3px 3px hsla(0, 0%, 1%, 0.447);
+}
+
+.Hero-p {
+    color: var(--BGWhite);
+    text-shadow: 3px 3px hsla(0, 0%, 1%, 0.447);
+}
+
+
+/* Mostrar destinos */
+
+.mostrarDestinosPadre {
+    width: 925px;
+    height: 393px;
+    border: 2px solid var(--SColor);
+    border-radius: 8px;
+
+}
+
+.mostrarDestinos-DivImagen {
+    flex: 1 1 70%;
+    height: 100%;
+}
+
+.mostrarDestinos-img {
+    height: 100%;
+    width: 99.5%;
+}
+
+.mostrarDestinos-DivPrecio {
+    flex: 1 1 30%;
+}
+
+.mostrarDestinos-cartFantasma {
     opacity: 0;
-    transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
-    z-index: -1;
-    transform: translate(100%, -25%) translate3d(0, 0, 0);
+    background-color: rgb(0, 0, 0, 0.2);
+    z-index: 200;
+    top: 0;
+    left: 0;
+    padding: 50px;
+    width: 99.3%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    text-shadow: 1px 1px hsla(0, 0%, 1%, 0.447);
+    text-align: start;
+    transition: 1000ms;
+    border-radius: 8px;
+
 }
 
-.boton:hover::before,
-.boton:hover::after {
-    opacity: 0.15;
-    transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1), opacity 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+.divMarco {
+    background-color: var(--SColor);
+    height: 40px;
+    width: 100%;
+    z-index: 201;
 }
 
-button:hover::before {
-    transform: translate3d(50%, 0, 0) scale(0.9);
-}
-
-button:hover::after {
-    transform: translate(50%, 0) scale(1.1);
+.abajoMarco {
+    height: 352px;
 }
 
 
-/* Card destinos */
-
-.card__bg {
-    background-color: #f7f7f7;
-    color: black;
+.mostrarDestinos-DivImagen:hover .mostrarDestinos-cartFantasma {
+    opacity: 1;
 }
 
-.card__bg .h3__secciones {
+.divExtraAgregar {
+    font-size: 12px;
+    border-top: 1px solid var(--BGGray)
+}
+
+
+.agregarP {
+    font-size: 12px;
+}
+
+.incluyeP {
+    font-size: 12px;
+}
+
+.precioReal {
+    font-size: 12px;
+    text-decoration: line-through;
+}
+
+.precioP {
+    font-size: 28px;
+}
+
+.botonAgregar {
+    width: 100px;
+    border-radius: 100px !important;
+    color: var(--BGWhite) !important;
+}
+
+
+/* Actividades */
+
+.actividades {
+    background-color: var(--BGGray);
+}
+
+.info-Act {
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    box-shadow: 0 0 3px var(--PColor);
+    background-color: var(--BGWhite);
+}
+
+.extra {
+    background-color: var(--BGGray);
+}
+
+
+
+
+/* Newsletter */
+
+.Newsletter-img>img {
+    height: 300px;
+}
+
+.Newsletter-p {
+    font-size: 12px;
+}
+
+.Newsletter-h5 {
+    font-size: 20px;
+}
+
+.Newsletter-h5_p {
+    font-size: 16px;
+}
+
+.Newsletter-label {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+
+
+/* Carrito  */
+.modalCarrito {
+    background: #ffe259;
+    box-shadow: 0px 0px 10px #333;
+}
+
+.carritoTitulo {
+    font-size: 20px;
+    border-bottom: 1px solid var(--BGGray);
+}
+
+.nombreUbiDest {
+    font-size: 15px;
+    border-bottom: 1px solid var(--BGGray);
+}
+
+.nombreDestCarrito {
+    font-size: 16px;
+    color: var(--BGGGray);
+
+}
+
+.carritoCompra {
+    color: white;
+    background-color: #7e4a07;
+    border-radius: 50%;
+    border: none;
+    height: 2.5rem;
+    width: 2.5rem;
     font-size: 1.5rem;
-    font-family: "Expletus Sans", cursive;
-    font-weight: 600;
+    transition: 200ms;
+    background-color: 250ms ease-in-out,
+}
+
+.carritoCompra:hover {
+    background-color: #ca6a09;
+}
+
+.carritoCompra:active {
+    transform: scale(0.9);
+}
+
+.notificacion {
+    font-size: 10px;
+}
+
+.nombreProdCarrito {
+    color: #ca6a09;
+    font-weight: bold;
+}
+
+
+
+.botonEliminar {
+    height: 36px;
+    width: 75px;
+    border-color: rgba(250, 77, 61, 0.761) !important;
+    background-color: var(--WColor) !important;
+    color: var(--BGWhite);
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.botonEliminar:hover {
+    background-color: #f34030 !important;
+}
+
+.botonCantidadPersonas {
+    height: 34px !important;
+    width: 32.6px;
+    font-size: 16px;
+    line-height: 2px;
+    border: 0 2px 0 2px !important;
+    border-radius: 6px;
+    color: var(--BGGGray);
+    /* border: none;
+    outline: none;
+    background-color: #ffe259;
+    box-shadow: 0px 0px 2px #333;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    transition: transform 50ms ease-in-out; */
+
+
+}
+
+.tostada {
+    color: var(--PColor);
+}
+
+.pPrecioPorPersona {
+    font-size: 12px;
+}
+
+.botonCantidad:active {
+    transform: scale(0.9);
+}
+
+.totalPrecio {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.botonComprar {
+    height: 48px;
+    width: 358px;
+    border-color: rgba(250, 77, 61, 0.761) !important;
+    background-color: var(--WColor) !important;
+    color: var(--BGWhite) !important;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.botonComprar:hover {
+    background-color: #f34030 !important;
 }
