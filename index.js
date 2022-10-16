@@ -1,163 +1,204 @@
-const destinos_index = document.getElementById("destinos_index");
-const destinos_detalle = document.getElementById("destinos_detalle");
-let excursiones;
+const contenedor = document.getElementById("container-destinos");
+contenedor.innerHTML = `<h2 class="text-center mt-4">Nuestros destinos</h2>`;
+
+const destinosPadre = document.createElement("div");
+destinosPadre.classList.add(
+  "mt-5",
+  "destinosPadre",
+  "d-flex",
+  "flex-column",
+  "align-items-center"
+);
+contenedor.append(destinosPadre);
+
+const contenedorCarrito = document.getElementById("contenedorCarrito");
+
+const contadorCarrito = document.getElementById("cartCount");
+
+const precioTotal = document.getElementById("precioTotal");
+
+const carrito = [];
+let destinos = [];
 fetch("./excursiones.json")
   .then((response) => response.json())
   .then((data) => {
-    excursiones = data;
-    const irDestinos = excursiones.find((e) => e.id === id_excursion2);
-    console.log(irDestinos);
-    console.log(window.location.pathname);
-    if (
-      window.location.pathname === "/index.html" ||
-      window.location.pathname === "/ProyectoJs/"
-    )
-      mostrarDestinos(excursiones);
-    if (
-      window.location.pathname === `/destino${id_excursion2}.html` ||
-      window.location.pathname === `/ProyectoJs/destino${id_excursion2}.html`
-    )
-      mostrarDetalle(irDestinos);
+    destinos = data;
+
+    mostrarDestinos(destinos);
   });
 
-let id_excursion;
-
 const mostrarDestinos = (array) => {
-  array.forEach((element) => {
-    const excursiones_hijo = document.createElement("div");
-    excursiones_hijo.classList.add(
-      "col-md-3",
+  array.forEach((destino) => {
+    const destinosHijo = document.createElement("div");
+    destinosHijo.classList.add(
       "d-flex",
-      "justify-content-center",
-      "mt-5"
+      "mostrarDestinosPadre",
+      "my-3",
+      "flex-column"
     );
-    excursiones_hijo.innerHTML = `
-            <div class="card" style="width: 18rem">
-              <img
-                src="./multimedia/destinos/montaña_nieve.webp"
-                class="card-img-top"
-                alt="Cart que muestra una presvisualizacion de la montaña nevada a la que se refiere el destino."
-              />
-              <div class="card-body card__bg">
-                <h3 class="card-title h3__secciones"> ${element.nombre}</h3>
-                <p>${element.puntuacion} ${
-      element.puntuacion > 7.5 ? "Fantastico" : "Bueno"
-    } ${element.comentarios} comentarios</p>
-                <p>Reserva flexible</p>
-                <p>Conoce los ${element.region}</p>
-                <div>Precio por adulto desde ${element.precio}</div>
-                <div class="d-flex justify-content-end" id="ir_destino${
-                  element.id
-                }">
-                  <a href=${element.url} class="btn boton"
-                    >Ver mas</a
-                  >
-                </div>
-                <div class="card_precio"></div>
-                
-              </div>
-            </div>
-          `;
+    destinosHijo.innerHTML = `<div class="divMarco"></div>
+    
+    
+    <div class="abajoMarco d-flex ">
+    <div class="mostrarDestinos-DivImagen position-relative">
+        <img src="${destino.url}" alt="" class="mostrarDestinos-img"/>
+        <div class="position-absolute mostrarDestinos-cartFantasma">
+          <h4>${destino.nombre}</h4>
+          <div class="d-flex gap-2">
+            <p><i class="bi bi-geo-alt-fill"></i> ${destino.ubicacion}</p>
+            <p><i class="bi bi-clock"></i> ${destino.duracionViaje}</p>
+          </div>
 
-    destinos_index.prepend(excursiones_hijo);
-
-    const boton = document.getElementById(`ir_destino${element.id}`);
+          <p>Incluye</p>
+          <div class="d-flex flex-column justify-content-end">
+            <p class="incluyeP">
+              <i class="bi bi-airplane"></i> Vuelo Operado por
+              Aerolíneas Argentinas
+            </p>
+            <p class="incluyeP"><i class="bi bi-building"></i> Alojamiento 4 noches</p>
+            <p class="incluyeP">
+              <i class="bi bi-bag-plus"></i> Seguro de viaje Vigencia: del 4 dic.
+              2022 al 8 dic. 2022
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center mostrarDestinos-DivPrecio text-center " >
+      <div><p class="agregarP">Precio final por persona.</p>
+      <p class="precioReal">${formatter.format(destino.precioReal)}</p>
+        <p class="precioP">${formatter.format(destino.precio)}</p>
+        <button class="btn boton botonAgregar" id="agregar${
+          destino.id
+        }">Agregar</button>  </div>
+        
+        <div class="divExtraAgregar d-flex align-items-end">Viajar con nosotros es difrutar.</div>
+      </div>
+    </div>
+    `;
+    destinosPadre.prepend(destinosHijo);
+    const boton = document.getElementById(`agregar${destino.id}`);
     boton.addEventListener("click", () => {
-      id_excursion = element.id;
-      localStorage.setItem("id_excursion", JSON.stringify(id_excursion));
+      agregarCarrito(destino.id);
     });
   });
 };
-
-const mostrarDetalle = (object) => {
-  const excursiones_hijo = document.createElement("div");
-  excursiones_hijo.classList.add("row", "card2");
-  excursiones_hijo.innerHTML = `<div class="col-md-9 card_left d-flex flex-column justify-content-end border-end ">
-            <div class="border-bottom">
-              <h4 class="titulo_act">${object.nombre}</h4>
-              <div class="d-flex">
-                <p class="datos_extra">Duración: ${
-                  object.duracion
-                }. Disponible: ${object.disponible}</p>
-              </div>
-            </div>
-            <div class="border-bottom">
-              <h3 class="incluye_act mt-5">Incluye</h3>
-              <span class="incluye_desc">${object.short_desc}</span
-              >
-              <!-- aca va esto En este recorrido por el Parque Ischigualasto - Valle de la Luna disfrutarás de paisajes de otro mundo. Ven a recorrer esta maravilla natural que te impresionará por sus formaciones rocosas y colores rojizos. -->
-            </div>
-            <div class="d-flex gap-3 mt-5">
-              <div>
-                <h3 class="datos_reserva">Fecha</h3>
-                <input class="redondeado"type="date" name="date" id="date" />
-              </div>
-              <div>
-                <h3 class="datos_reserva">Hora</h3>
-                <select class ="redondeado"name="hora_excursion" id="hora">${object.horas.map(
-                  (f) => `<option value=${f}>${f}</option>`
-                )}</select>
-              </div>
-              <div>
-                <h3 class="datos_reserva">Cantida de personas</h3>
-                <button
-                  type="button"
-                  class="btn btn-lg redondeado"
-                  data-bs-toggle="popover"
-                  data-bs-title="Popover title"
-                  data-bs-content="+ personas"
-                >
-                  1 persona
-                </button>                
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex">
-            <div class="precio d-flex flex-column">
-              <h3 class="m-3 precio">Precio final por 'x' persona</h3>
-              <span class="mt-5">$${object.precio} </span>
-              <div class="d-flex justify-content-center flex-column ">
-              <button class="redondeado boton" id="comprarT_${
-                object.id
-              }">Comprar</button>
-              <button class="redondeado boton mt-2">Agregar</button>
-              </div>
-            </div>
-          </div>`;
-  destinos_detalle.prepend(excursiones_hijo);
-  const popoverTriggerList = document.querySelectorAll(
-    '[data-bs-toggle="popover"]'
-  );
-  const comprarToast = document.getElementById(`comprarT_${object.id}`);
-  console.log(comprarToast);
-  comprarToast.addEventListener("click", () => {
-    toasTy();
-  });
-  const popoverList = [...popoverTriggerList].map(
-    (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-  );
-  let fecha = document.getElementById("date");
-
-  fecha.addEventListener("change", (e) => {
-    console.log(e.target.value);
-  });
-};
-
-let id_excursion2 = JSON.parse(localStorage.getItem("id_excursion"));
-
-const toasTy = () => {
+const agregarCarrito = (destId) => {
+  const item = destinos.find((dest) => dest.id === destId);
+  carrito.push(item);
   Toastify({
-    text: "Compra exitosa",
-    duration: 2000,
-    destination: "https://github.com/apvarun/toastify-js",
-    newWindow: true,
+    text: "Destino agregado",
+    duration: 3000,
     close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
+    gravity: "bottom", // top or bottom
+    position: "left", // left, center or right
     stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "linear-gradient(to right, #4300d2, #a780ff)",
-    },
-    onClick: function () {}, // Callback after click
+    className: "tostada",
   }).showToast();
+
+  actualizarCarrito();
 };
+const actualizarCarrito = () => {
+  contenedorCarrito.innerHTML = "";
+  const carritoDos = new Set(carrito);
+  const carritoFinal = Array.from(carritoDos);
+  carritoFinal.forEach((dest) => {
+    const li = document.createElement("li");
+    li.classList.add("list-group-item", "list-group-item-action");
+    li.setAttribute("aria-current", "true");
+    li.innerHTML = `<div class="d-flex w-100 justify-content-between">
+     <h5 class="mb-1 nombreDestCarrito">${dest.nombre} </h5>
+
+    <button class=" botonEliminar" id="eliminar${dest.id}">
+        <i class="bi bi-trash"></i>
+    </button>
+    </div> 
+    <p class="mb-1 nombreUbiDest">${dest.ubicacion}</p>
+
+    <div class="d-flex w-100 justify-content-between">
+
+        <p>Personas: <button id="restarCantidad${
+          dest.id
+        }"class="botonCantidadPersonas me-2">-</button>
+            <span id="cantidadContador${dest.id}">${
+      dest.cantidadPersonas
+    }</span>
+            <button id="sumarCantidad${
+              dest.id
+            }"class="botonCantidadPersonas ms-2">+</button>
+        </p>
+    <p class="d-flex flex-column pPrecioPorPersona">Precio por persona: 
+    <span>${formatter.format(dest.precio)}</span></p>
+    </div>
+
+    <p id="subPrecio${dest.id}">Precio: ${formatter.format(dest.precio)}</p>`;
+    contenedorCarrito.append(li);
+    const boton = document.getElementById(`eliminar${dest.id}`);
+    boton.addEventListener("click", () => {
+      eliminarDelCarrito(dest.id);
+      cuentaFinal();
+    });
+    let restarCantidad = document.getElementById(`restarCantidad${dest.id}`);
+    let sumarCantidad = document.getElementById(`sumarCantidad${dest.id}`);
+    let cantidadContador = document.getElementById(
+      `cantidadContador${dest.id}`
+    );
+    let acumulador = dest.cantidadPersonas;
+    restarCantidad.addEventListener("click", () => {
+      if (acumulador > 1) {
+        acumulador--;
+      }
+      cantidadContador.innerText = acumulador;
+      dest.cantidadPersonas = acumulador;
+      const subPrecio = document.getElementById(`subPrecio${dest.id}`);
+      let subPrecioAcumulador = 0;
+      subPrecioAcumulador = acumulador * dest.precio;
+      subPrecio.innerHTML = `Precio: $${subPrecioAcumulador}`;
+      cuentaFinal();
+    });
+    sumarCantidad.addEventListener("click", () => {
+      acumulador++;
+      cantidadContador.innerText = acumulador;
+      dest.cantidadPersonas = acumulador;
+      const subPrecio = document.getElementById(`subPrecio${dest.id}`);
+      let subPrecioAcumulador = 0;
+      subPrecioAcumulador = acumulador * dest.precio;
+      subPrecio.innerHTML = `Precio: ${formatter.format(subPrecioAcumulador)}`;
+      cuentaFinal();
+    });
+  });
+
+  //   contadorCarrito.innerText = carritoFinal.lemgth;
+  //   console.log(carritoFinal);
+  //   if (contadorCarrito === 0) {
+  //     contadorCarrito.classList.add("invisible");
+  //   } else {
+  //     contadorCarrito.classList.remove("invisible");
+  //   }
+  cuentaFinal();
+};
+let precioFinal = 0;
+const cuentaFinal = () => {
+  const carritoDos = new Set(carrito);
+  const carritoFinalFinal = Array.from(carritoDos);
+  precioFinal = carritoFinalFinal.reduce(
+    (acc, dest) => acc + dest.precio * dest.cantidadPersonas,
+    0
+  );
+  precioTotal.innerText = `${formatter.format(precioFinal)}`;
+};
+
+const eliminarDelCarrito = (destId) => {
+  const carritoDos = new Set(carrito);
+  const carritoFinalFinal = Array.from(carritoDos);
+  const item = carritoFinalFinal.find((dest) => dest.id === destId);
+  const indice = carritoFinalFinal.indexOf(item);
+  do {
+    carrito.splice(indice, 1);
+  } while (carrito.find((dest) => dest.id === destId));
+  actualizarCarrito();
+};
+
+var formatter = new Intl.NumberFormat("es-AR", {
+  style: "currency",
+  currency: "ARS",
+});
