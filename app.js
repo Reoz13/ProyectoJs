@@ -198,6 +198,56 @@ const eliminarDelCarrito = (destId) => {
   actualizarCarrito();
 };
 
+// Boton comprar api mercadopago
+const botonComprar = document.getElementById("botonFinalizarCompra");
+
+botonComprar.addEventListener("click", () => {
+  const carritoDos = new Set(carrito);
+  const carritoFinalFinal = Array.from(carritoDos);
+
+  if (carritoFinalFinal.length === 0) {
+    Toastify({
+      text: "No hay productos en el carrito",
+      duration: 3000,
+      close: true,
+      gravity: "bottom", // `top` or `bottom`
+      position: "left", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      className: "tostada",
+    }).showToast();
+  } else {
+    const carritoAMP = carritoFinalFinal.map((item) => {
+      return {
+        title: item.nombre,
+        description: item.marca,
+        picture_url: item.img,
+        category_id: item.id,
+        quantity: item.cantAVender,
+        currency_id: "ARS",
+        unit_price: item.precio,
+      };
+    });
+    fetch("https://api.mercadopago.com/checkout/preferences", {
+      method: "POST",
+      headers: {
+        Authorization:
+          "Bearer TEST-3836172684719657-112020-8d1296aad608c6c9d82f0215a73a86ca-1023132629",
+      },
+      body: JSON.stringify({
+        items: carritoAMP,
+        back_urls: {
+          success: window.location.href,
+          failure: window.location.href,
+        },
+      }),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        window.location.replace(data.init_point);
+      });
+  }
+});
+
 var formatter = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
